@@ -1,0 +1,19 @@
+jobs:
+  - script: >
+      folder('docker-image')
+  - script: >
+      pipelineJob("docker-image/pipelines-builder") {
+          definition {
+              cpsScm {
+                  scriptPath("jenkins/pipelines-builder.groovy")
+                  scm {
+                      git {
+                          remote {
+                              url("https://github.com/dumernet/docker-image.git")
+                          }
+                          branch("*/develop")
+                      }
+                  }
+              }
+          }
+      }
